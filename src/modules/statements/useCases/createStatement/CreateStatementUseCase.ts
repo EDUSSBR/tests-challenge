@@ -1,6 +1,8 @@
+import 'reflect-metadata'
 import { inject, injectable } from "tsyringe";
 
 import { IUsersRepository } from "../../../users/repositories/IUsersRepository";
+import { OperationType } from '../../entities/Statement';
 import { IStatementsRepository } from "../../repositories/IStatementsRepository";
 import { CreateStatementError } from "./CreateStatementError";
 import { ICreateStatementDTO } from "./ICreateStatementDTO";
@@ -21,7 +23,6 @@ export class CreateStatementUseCase {
     if(!user) {
       throw new CreateStatementError.UserNotFound();
     }
-
     if(type === 'withdraw') {
       const { balance } = await this.statementsRepository.getUserBalance({ user_id });
 
